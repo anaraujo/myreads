@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import Bookshelf from "./Bookshelf";
 
-const HomePage = ({ books, setShowSearchpage, showSearchPage }) => {
+const HomePage = ({
+  books,
+  setBookUpdated,
+  setShowSearchpage,
+  showSearchPage,
+}) => {
   const [bookshelves, setBookshelves] = useState({
     currentlyReading: {
       title: "Currently Reading",
@@ -43,7 +48,14 @@ const HomePage = ({ books, setShowSearchpage, showSearchPage }) => {
         <div>
           {Object.entries(bookshelves).map(([key, bookshelf]) => {
             const { title, books } = bookshelf;
-            return <Bookshelf key={key} title={title} books={books} />;
+            return (
+              <Bookshelf
+                key={key}
+                title={title}
+                books={books}
+                setBookUpdated={setBookUpdated}
+              />
+            );
           })}
         </div>
       </div>

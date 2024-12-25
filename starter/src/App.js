@@ -6,6 +6,7 @@ import HomePage from "./HomePage";
 
 function App() {
   const [showSearchPage, setShowSearchpage] = useState(false);
+  const [bookUpdated, setBookUpdated] = useState(false);
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
@@ -18,8 +19,10 @@ function App() {
       }
     };
 
+    if (bookUpdated) setBookUpdated(false);
+
     fetchBooks();
-  }, []);
+  }, [bookUpdated]);
 
   return (
     <div className="app">
@@ -31,6 +34,7 @@ function App() {
       ) : (
         <HomePage
           books={books}
+          setBookUpdated={setBookUpdated}
           setShowSearchpage={setShowSearchpage}
           showSearchPage={showSearchPage}
         />

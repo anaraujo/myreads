@@ -1,5 +1,16 @@
-const Book = ({ book }) => {
+import { useState } from "react";
+import { update } from "./BooksAPI";
+
+const Book = ({ book, setBookUpdated }) => {
+  const [selectedShelf, setSelectedShelf] = useState(book.shelf);
   const { title, authors, imageLinks } = book;
+
+  const updateBook = async (book, shelf) => {
+    setSelectedShelf(shelf);
+    await update(book, shelf);
+    setBookUpdated(true);
+  };
+
   return (
     <div className="book">
       <div className="book-top">
@@ -10,7 +21,12 @@ const Book = ({ book }) => {
           }}
         ></div>
         <div className="book-shelf-changer">
-          <select>
+          <select
+            value={selectedShelf}
+            onChange={async (e) => {
+              await updateBook(book, e.target.value);
+            }}
+          >
             <option value="none">Move to...</option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>
@@ -20,8 +36,10 @@ const Book = ({ book }) => {
         </div>
       </div>
       <div className="book-title">{title}</div>
-      {authors.map((author) => (
-        <div className="book-authors">{author}</div>
+      {authors.map((author, key) => (
+        <div key={key} className="book-authors">
+          {author}
+        </div>
       ))}
     </div>
   );
