@@ -1,14 +1,12 @@
-const Book = ({ cover, title, author }) => {
-  const { width, height, url } = cover;
+const Book = ({ book }) => {
+  const { title, authors, imageLinks } = book;
   return (
     <div className="book">
       <div className="book-top">
         <div
           className="book-cover"
           style={{
-            width,
-            height,
-            backgroundImage: `url("${url}")`,
+            backgroundImage: `url("${imageLinks.smallThumbnail}")`,
           }}
         ></div>
         <div className="book-shelf-changer">
@@ -24,7 +22,9 @@ const Book = ({ cover, title, author }) => {
         </div>
       </div>
       <div className="book-title">{title}</div>
-      <div className="book-authors">{author}</div>
+      {authors.map((author) => (
+        <div className="book-authors">{author}</div>
+      ))}
     </div>
   );
 };
