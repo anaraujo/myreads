@@ -2,16 +2,28 @@ import { useState } from "react";
 import { search } from "./BooksAPI";
 import Book from "./Book";
 
-const SearchPage = ({ showSearchPage, setShowSearchpage, setBookUpdated }) => {
+const DEFAULT_SHELF = "none";
+
+const SearchPage = ({
+  books,
+  showSearchPage,
+  setShowSearchpage,
+  setBookUpdated,
+}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [result, setResult] = useState([]);
 
   const searchBook = async (term) => {
     setSearchTerm(term);
-    console.log(searchTerm);
     try {
       const res = await search(term);
-      setResult(res);
+      const data = res.map((searchedBook) => {
+        const bookInLibrary = books.find((book) => book.id === searchedBook.id);
+        let shelf = DEFAULT_SHELF;
+        if (bookInLibrary) shelf = bookInLibrary.shelf;
+        return { ...searchedBook, shelf };
+      });
+      setResult(data);
     } catch (err) {
       console.error(err);
     }

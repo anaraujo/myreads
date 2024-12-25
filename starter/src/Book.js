@@ -1,12 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { update } from "./BooksAPI";
 
-const DEFAULT_SHELF = "none";
-
 const Book = ({ book, setBookUpdated }) => {
-  const [selectedShelf, setSelectedShelf] = useState(
-    book.shelf ?? DEFAULT_SHELF
-  );
+  const [selectedShelf, setSelectedShelf] = useState(book.shelf);
   const { title, authors, imageLinks } = book;
 
   const updateBook = async (book, shelf) => {
@@ -14,6 +10,10 @@ const Book = ({ book, setBookUpdated }) => {
     await update(book, shelf);
     setBookUpdated(true);
   };
+
+  useEffect(() => {
+    setSelectedShelf(book.shelf);
+  }, [book.shelf]);
 
   return (
     <div className="book">
@@ -31,7 +31,7 @@ const Book = ({ book, setBookUpdated }) => {
               await updateBook(book, e.target.value);
             }}
           >
-            <option value="none">Move to...</option>
+            <option value="select">Move to...</option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>
             <option value="read">Read</option>

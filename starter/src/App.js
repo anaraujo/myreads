@@ -28,6 +28,7 @@ function App() {
     <div className="app">
       {showSearchPage ? (
         <SearchPage
+          books={books}
           showSearchPage={showSearchPage}
           setShowSearchpage={setShowSearchpage}
           setBookUpdated={setBookUpdated}
