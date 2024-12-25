@@ -28,15 +28,16 @@ function App() {
     <div className="app">
       {showSearchPage ? (
         <SearchPage
-          setShowSearchpage={setShowSearchpage}
           showSearchPage={showSearchPage}
+          setShowSearchpage={setShowSearchpage}
+          setBookUpdated={setBookUpdated}
         />
       ) : (
         <HomePage
           books={books}
-          setBookUpdated={setBookUpdated}
           setShowSearchpage={setShowSearchpage}
           showSearchPage={showSearchPage}
+          setBookUpdated={setBookUpdated}
         />
       )}
     </div>

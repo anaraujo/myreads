@@ -3,9 +3,9 @@ import Bookshelf from "./Bookshelf";
 
 const HomePage = ({
   books,
-  setBookUpdated,
   setShowSearchpage,
   showSearchPage,
+  setBookUpdated,
 }) => {
   const [bookshelves, setBookshelves] = useState({
     currentlyReading: {

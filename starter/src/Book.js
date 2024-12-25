@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { update } from "./BooksAPI";
 
+const DEFAULT_SHELF = "none";
+
 const Book = ({ book, setBookUpdated }) => {
-  const [selectedShelf, setSelectedShelf] = useState(book.shelf);
+  const [selectedShelf, setSelectedShelf] = useState(
+    book.shelf ?? DEFAULT_SHELF
+  );
   const { title, authors, imageLinks } = book;
 
   const updateBook = async (book, shelf) => {
@@ -17,7 +21,7 @@ const Book = ({ book, setBookUpdated }) => {
         <div
           className="book-cover"
           style={{
-            backgroundImage: `url("${imageLinks.smallThumbnail}")`,
+            backgroundImage: `url("${imageLinks?.smallThumbnail}")`,
           }}
         ></div>
         <div className="book-shelf-changer">
@@ -36,7 +40,7 @@ const Book = ({ book, setBookUpdated }) => {
         </div>
       </div>
       <div className="book-title">{title}</div>
-      {authors.map((author, key) => (
+      {authors?.map((author, key) => (
         <div key={key} className="book-authors">
           {author}
         </div>
