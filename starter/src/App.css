@@ -47,6 +47,7 @@ body,
 }
 
 .open-search {
+  cursor: pointer;
   position: fixed;
   right: 25px;
   bottom: 25px;
@@ -89,6 +90,7 @@ body,
 }
 
 .close-search {
+  cursor: pointer;
   display: block;
   top: 20px;
   left: 15px;

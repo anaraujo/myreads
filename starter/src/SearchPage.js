@@ -13,19 +13,32 @@ const SearchPage = ({
   const [searchTerm, setSearchTerm] = useState("");
   const [result, setResult] = useState([]);
 
+  const resetResult = () => {
+    setResult([]);
+  };
+
   const searchBook = async (term) => {
     setSearchTerm(term);
+
+    if (term === "") return resetResult();
+
     try {
       const res = await search(term);
-      const data = res.map((searchedBook) => {
-        const bookInLibrary = books.find((book) => book.id === searchedBook.id);
-        let shelf = DEFAULT_SHELF;
-        if (bookInLibrary) shelf = bookInLibrary.shelf;
-        return { ...searchedBook, shelf };
-      });
+      const data =
+        res.length > 0
+          ? res.map((searchedBook) => {
+              const bookInLibrary = books.find(
+                (book) => book.id === searchedBook.id
+              );
+              let shelf = DEFAULT_SHELF;
+              if (bookInLibrary) shelf = bookInLibrary.shelf;
+              return { ...searchedBook, shelf };
+            })
+          : [];
       setResult(data);
     } catch (err) {
       console.error(err);
+      resetResult();
     }
   };
 
